@@ -15,10 +15,10 @@ public class TicTacToe {
 		
 		switch(menuInput){
 			case "1":
-				Board boardPVP = new Board(1);
+				new Board(1);
 				break;
 			case "2":
-				Board boardAI = new Board(2);
+				new Board(2);
 				break;
 			case "Q":
 				System.out.println("Thanks for playing!");
