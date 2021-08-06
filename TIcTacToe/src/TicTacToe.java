@@ -25,6 +25,7 @@ public class TicTacToe {
 				break;
 			default:
 				System.out.println("ERROR: Invalid Input, Press \"Q\" to quit");
+				startMenu();
 		}
 	}
 
