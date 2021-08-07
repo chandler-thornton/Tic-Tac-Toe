@@ -2,6 +2,11 @@ import java.lang.reflect.Array;
 import java.util.Random;
 import java.util.Scanner;
 
+
+import java.lang.reflect.Array;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Board {
 	
 	private static char[][] board = {{' ',' ',' '},
@@ -71,149 +76,46 @@ public class Board {
 	}
 	
 	public static void setPlayerMove(int pos, int player) {
-
+	// 100 lines of code saved 
 	    if(player == 1) {
-	    	switch(pos) {
-	    		case 1:
-	    			board[0][0] = 'X';
-	    			columnScore[0] += 1;
-	    			rowScore[0] += 1;
-	    			diagonalScore[0] += 1;
-	    			break;
-	    		case 2:
-	    			board[0][1] = 'X';
-	    			columnScore[1] += 1;
-	    			rowScore[0] += 1;
-	    			break;
-	    		case 3:
-	    			board[0][2] = 'X';
-	    			columnScore[2] += 1;
-	    			rowScore[0] += 1;
-	    			diagonalScore[1] += 1;
-	    			break;
-	    		case 4:
-	    			board[1][0] = 'X';
-	    			columnScore[0] += 1;
-	    			rowScore[1] += 1;
-	    			break;
-	    		case 5:
-	    			board[1][1] = 'X';
-	    			columnScore[1] += 1;
-	    			rowScore[1] += 1;
-	    			diagonalScore[0] += 1;
-	    			diagonalScore[1] += 1;
-	    			break;
-	    		case 6:
-	    			board[1][2] = 'X';
-	    			columnScore[2] += 1;
-	    			rowScore[1] += 1;
-	    			break;
-	    		case 7:
-	    			board[2][0] = 'X';
-	    			columnScore[0] += 1;
-	    			rowScore[2] += 1;
-	    			diagonalScore[1] += 1;
-	    			break;
-	    		case 8:
-	    			board[2][1] = 'X';
-	    			columnScore[1] += 1;
-	    			rowScore[2] += 1;
-	    			break;
-	    		case 9 :
-	    			board[2][2] = 'X';
-	    			columnScore[2] += 1;
-	    			rowScore[2] += 1;
-	    			diagonalScore[0] += 1;
-	    			break;
-	    	}
+	    	board[(pos - 1) / 3][(pos - 1) % 3] = 'X';
+	    } else {
+	    	board[(pos - 1) / 3][(pos - 1) % 3] = 'O';
 	    }
-	    else if(player == 2) {
-	    	switch(pos) {
-	    		case 1:
-	    			board[0][0] = 'O';
-	    			columnScore[0] -= 1;
-	    			rowScore[0] -= 1;
-	    			diagonalScore[0] -= 1;
-	    			break;
-	    		case 2:
-	    			board[0][1] = 'O';
-	    			columnScore[1] -= 1;
-	    			rowScore[0] -= 1;
-	    			break;
-	    		case 3:
-	    			board[0][2] = 'O';
-	    			columnScore[2] -= 1;
-	    			rowScore[0] -= 1;
-	    			diagonalScore[1] -= 1;
-	    			break;
-	    		case 4:
-	    			board[1][0] = 'O';
-	    			columnScore[0] -= 1;
-	    			rowScore[1] -= 1;
-	    			break;
-	    		case 5:
-	    			board[1][1] = 'O';
-	    			columnScore[1] -= 1;
-	    			rowScore[1] -= 1;
-	    			diagonalScore[0] -= 1;
-	    			diagonalScore[1] -= 1;
-	    			break;
-	    		case 6:
-	    			board[1][2] = 'O';
-	    			columnScore[2] -= 1;
-	    			rowScore[1] -= 1;
-	    			break;
-	    		case 7:
-	    			board[2][0] = 'O';
-	    			columnScore[0] -= 1;
-	    			rowScore[2] -= 1;
-	    			diagonalScore[1] -= 1;
-	    			break;
-	    		case 8:
-	    			board[2][1] = 'O';
-	    			columnScore[1] -= 1;
-	    			rowScore[2] -= 1;
-	    			break;
-	    		case 9 :
-	    			board[2][2] = 'O';
-	    			columnScore[2] -= 1;
-	    			rowScore[2] -= 1;
-	    			diagonalScore[0] -= 1;
-	    			break;
-	    	}
-	    }
+	    
 	}
 	
 	public static boolean checkExistsWinner() {
-		for(int r = 0; r < 2; r++) {
-			if(rowScore[r] == 3 || rowScore[r] == -3) {
-				winnerNum = rowScore[r];
+		char winner_ = ' ';
+		
+		for(int i = 0; i < 3; i++) {
+			// checks winner of a row, sets winner_ equal to the either "X" or "O"
+			if(board[i][0] == (board[i][1]) && board[i][0] == (board[i][2]) && (board[i][0] != ' ')){
+				winner_ = board[i][0];
+			}
+			// checks winner of a column
+			if(board[0][i] == (board[1][i]) && board[0][i] == (board[2][i]) && (board[i][0] != ' ')) {
+				winner_ = board[0][i];
+			}
+			// checks winner of diagonals
+			if(board[0][0] == (board[1][1]) && board[0][0] == (board[2][2]) && (board[i][0] != ' ')) {
+				winner_ = board[1][1];
+			}
+			if(board[0][2] == (board[1][1]) && board[0][2] == (board[2][0]) && (board[i][0] != ' ')) {
+				winner_ = board[1][1];
 			}
 		}
-		for(int c = 0; c < 2; c++) {
-			if(columnScore[c] == 3 || columnScore[c] == -3) {
-				winnerNum = columnScore[c];
+		// if winner_ is satisfied
+		if(winner_ != ' ') {
+			if(winner_ == 'X') {
+				winner = 1;
+			}else {
+				winner = 2;
 			}
-		}
-		for(int d = 0; d < 1; d++) {
-			if(diagonalScore[d] == 3 || diagonalScore[d] == -3) {
-				winnerNum = diagonalScore[d];
-			}
-		}
-		if(winnerNum == 3) {
-			winner = 1;
 			existsWinner = true;
 			return true;
+			
 		}
-		else if(winnerNum == -3) {
-			winner = 2;
-			existsWinner = true;
-			return true;
-		}
-		else {
-			return false;
+		return false;
 		}
 	}
-
-}
-
