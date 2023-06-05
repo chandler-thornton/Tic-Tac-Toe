@@ -37,6 +37,21 @@ public class Board {
 			}
 		}
 		System.out.println("Player " + winner + " wins!");
+		existsWinner = false;
+		//for(int i = 0; i < 3; i++) {
+		//	for(int j = 0; i < 3; i++) {
+		//		board[i][j] = ' ';
+		//	}
+		//} 
+		board[0][0] = ' ';
+		board[0][1] = ' ';
+		board[0][2] = ' ';
+		board[1][0] = ' ';
+		board[1][1] = ' ';
+		board[1][2] = ' ';
+		board[2][0] = ' ';
+		board[2][1] = ' ';
+		board[2][2] = ' ';
 		TicTacToe.startMenu();
 	}
 	
@@ -53,7 +68,9 @@ public class Board {
 		System.out.println("Player 1, Enter position 1-9:");
 		int move = scan.nextInt();
 		setPlayerMove(move, 1);
-		printBoard(board);
+		if(compType == 1) {
+			printBoard(board);
+		}
 		System.out.println();
 		return(checkExistsWinner());
 	}
@@ -67,22 +84,25 @@ public class Board {
 		}
 		else {
 			Random rand = new Random();
-			move = rand.nextInt(9);
+			move = rand.nextInt(10 - 1) + 1;
 		}
 		setPlayerMove(move, 2);
-		printBoard(board);
 		System.out.println();
 		checkExistsWinner();
 	}
 	
 	public static void setPlayerMove(int pos, int player) {
 	// 100 lines of code saved 
-	    if(player == 1) {
-	    	board[(pos - 1) / 3][(pos - 1) % 3] = 'X';
-	    } else {
-	    	board[(pos - 1) / 3][(pos - 1) % 3] = 'O';
+	    if((board[(pos - 1) / 3][(pos - 1) % 3]) == ' ') {
+	    	if(player == 1) {
+		    	board[(pos - 1) / 3][(pos - 1) % 3] = 'X';
+		    } else {
+		    	board[(pos - 1) / 3][(pos - 1) % 3] = 'O';
+		    }
 	    }
-	    
+	    else {
+	    	return;
+	    }
 	}
 	
 	public static boolean checkExistsWinner() {
